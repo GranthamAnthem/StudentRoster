@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<ScrollPane fx:controller="sample.Controller" xmlns:fx="http://javafx.com/fxml">
+
+
+    <TabPane>
+        <Tab text="Students" closable="false" fx:id="studentsTab">
+            <VBox spacing="5" prefWidth="760" prefHeight="820">
+                <MenuBar>
+                    <Menu text="File">
+                        <MenuItem text ="New" onAction="#onClickNewFile"></MenuItem>
+                        <MenuItem text ="Open" onAction="#onClickOpenFile"></MenuItem>
+                        <MenuItem text ="Save" onAction="#onClickSaveFile"></MenuItem>
+                        <MenuItem text ="Save As" onAction="#onClickSaveAs"></MenuItem>
+                        <MenuItem text ="Close" onAction="#onClickClose"></MenuItem>
+                        <MenuItem text ="Exit" onAction="#onClickExit"></MenuItem>
+                    </Menu>
+                </MenuBar>
+
+                <StackPane fx:id="square">
+                    <StackPane prefWidth="50" prefHeight="50" fx:id="logo"  >
+                        <Rectangle fx:id="rect" fill="blue" width="80" height="40" stroke="black" strokeWidth="4"/>
+                        <Text text="MSWE" textAlignment="CENTER" fill="gold" fx:id="textLogo"></Text>
+                    </StackPane>
+                </StackPane>
+
+
+
+                <TableView minHeight="200" maxHeight="200" maxWidth="740" fx:id="tableView">
+                    <columns>
+                        <TableColumn fx:id="studentIdColumn" text="Student Id" onEditCommit="#editStudentId"></TableColumn>
+                        <TableColumn fx:id="firstNameColumn" text="First" onEditCommit="#editFirstName"></TableColumn>
+                        <TableColumn fx:id="lastNameColumn" text="Last" onEditCommit="#editLastName"></TableColumn>
+                        <TableColumn fx:id="majorColumn" text="Major" onEditCommit="#editMajor"></TableColumn>
+                        <TableColumn fx:id="gradeColumn" text="Grade" onEditCommit="#editGrade"></TableColumn>
+                        <TableColumn fx:id="gradeOptionColumn" text="Grade Option" onEditCommit="#editGradeOption"></TableColumn>
+                        <TableColumn fx:id="honorStatusColumn" text="Honor Status"></TableColumn>
+                        <TableColumn fx:id="notesColumn" text="Notes" onEditCommit="#editNotes"></TableColumn>
+                        <TableColumn fx:id="imageColumn" text="Image"></TableColumn>
+                    </columns>
+                </TableView>
+
+                <TextField fx:id="studentId" promptText="Student Id" maxWidth="400" ></TextField>
+                <TextField fx:id="lastName" promptText="Last Name" maxWidth="400" ></TextField>
+                <TextField fx:id="firstName" promptText="First Name" maxWidth="400" ></TextField>
+                <ComboBox fx:id="major">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Software Engineering"/>
+                            <String fx:value="English"/>
+                            <String fx:value="Neuroscience"/>
+                            <String fx:value="Music"/>
+                            <String fx:value="Sociology"/>
+
+                        </FXCollections>
+                    </items>
+                    <value>
+                        <String fx:value="Software Engineering" />
+                    </value>
+                </ComboBox>
+                <ComboBox fx:id="gradeBox">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="A"/>
+                            <String fx:value="B"/>
+                            <String fx:value="C"/>
+                            <String fx:value="D"/>
+                            <String fx:value="F"/>
+                        </FXCollections>
+                    </items>
+                    <value>
+                        <String fx:value="A" />
+                    </value>
+                </ComboBox>
+                <fx:define>
+                    <ToggleGroup fx:id="gradeOption"  />
+                </fx:define>
+                <HBox alignment="CENTER_LEFT">
+                    <RadioButton fx:id="letterGrade" text="Letter Grade" toggleGroup="${gradeOption}"  />
+                    <RadioButton fx:id="passNP" text="Pass / No Pass" toggleGroup="${gradeOption}" />
+                </HBox>
+
+                <CheckBox fx:id="honorStatus" text="Honor Status"></CheckBox>
+                <TextArea fx:id="notes" promptText="Additional Notes..." maxWidth="400" ></TextArea>
+                <Button fx:id="uploadbutton" text="Upload Photo" onAction="#uploadButton"></Button>
+                <BorderPane fx:id="photoLayout" minHeight="100">
+                    <ImageView fx:id="photo" fitWidth="100" fitHeight="100"></ImageView>
+                </BorderPane>
+
+
+                <HBox fx:id="studentNagivation" alignment="CENTER" spacing="5">
+                    <Button fx:id="newStudent" text="New Student" onAction="#onClickNewStudent"></Button>
+                    <Button fx:id="deleteStudent" text="Delete Student" onAction="#onClickDeleteStudent"></Button>
+                    <Button fx:id="save" text="Save" onAction="#onClickSaveStudent"></Button>
+                    <Button fx:id="prevStudent" text="Previous Student" onAction="#onClickPreviousStudent"></Button>
+                    <Button fx:id="nextStudent" text="Next Student" onAction="#onClickNextStudent"></Button>
+                </HBox>
+            </VBox>
+        </Tab>
+
+
+
+        <Tab text="Statistics"  closable="false">
+            <VBox>
+                <PieChart fx:id="chart">
+
+                </PieChart>
+                <BarChart fx:id="barChart" >
+                    <xAxis>
+                        <CategoryAxis fx:id="xAxis" side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="yAxis" side="LEFT"  />
+                    </yAxis>
+                </BarChart>
+            </VBox>
+        </Tab>
+
+    </TabPane>
+
+
+
+</ScrollPane>
